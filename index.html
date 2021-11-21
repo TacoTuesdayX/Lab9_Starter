@@ -87,7 +87,17 @@
     </section>
   </main>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "4720fda07a1746aba4dd6297e9d31634"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+                        
+  <script>
+    TrackJS.track('Testing TrackJS!');
+
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -99,9 +109,101 @@
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
-
     // Start your code here
     // You may move this JS to another file if you wish
+
+    class BadDivisorError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "BadDivisorError";
+      }
+    }
+
+    function badDivisor(a) {
+      let b = 5;
+      let c = b/a;
+      console.log(c);
+      if(c == Infinity){   
+        throw new BadDivisorError("Division By Zero");
+      }
+    }   
+
+    // console log
+    errorBtns[0].addEventListener('click', e=> {
+      console.log("yeeeeee-haaaaaa");
+    });
+    // console error
+    errorBtns[1].addEventListener('click', e=> {
+      console.error('stinky code');
+    });
+    // console count
+    errorBtns[2].addEventListener('click', e=> {
+      console.count('instances of wasted energy');
+    });
+    // console warn
+    errorBtns[3].addEventListener('click', e=> {
+      console.warn('Be Careful! This is a dangerous action.', e);
+    });
+    // console assert
+    errorBtns[4].addEventListener('click', e=> {
+      console.assert(1 > 1);
+    });
+    // console clear
+    errorBtns[5].addEventListener('click', e=> {
+      console.clear();
+    });
+    // console dir
+    errorBtns[6].addEventListener('click', e=> {
+      console.dir(document.head);
+    });
+    // console dirxml
+    errorBtns[7].addEventListener('click', e=> {
+      console.dirxml(document);
+    });
+    //console gorup start
+    errorBtns[8].addEventListener('click', e=> {
+      console.group('unlucky');
+    });
+    // console group end
+    errorBtns[9].addEventListener('click', e=> {
+      console.groupEnd('unlucky');
+    });
+    // console table
+    errorBtns[10].addEventListener('click', e=> {
+      console.table([
+        {
+          first: 'Jeff',
+          last: 'Huevos',
+          catchPhrase: 'You can have my huevos'
+        },
+        {
+          first: 'Yes',
+          last: 'No',
+          catchPhrase: 'Maybe'
+        },
+      ])
+    });
+    // console start timer
+    errorBtns[11].addEventListener('click', e=> {
+      console.time();
+    });
+    // console end timer
+    errorBtns[12].addEventListener('click', e=> {
+      console.timeEnd();
+    });
+    // console trace
+    errorBtns[13].addEventListener('click', e=> {
+      console.trace();
+    });
+    // trigger a global error
+    errorBtns[14].addEventListener('click', e=> {
+      // check division by zero
+      try{ badDivisor(0)}
+      catch(err){
+        console.warn(err);
+        throw err;
+      }
+    });
   </script>
 </body>
 
